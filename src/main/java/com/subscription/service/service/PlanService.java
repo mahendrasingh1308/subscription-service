@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PlanService {
 
-    PlanResponse createPlan(PlanRequest request, String creatorId);
+    PlanResponse createPlan(PlanRequest request, String creatorId,String firstName,String lastName);
 
     List<PlanResponse> getAllPlans();
 

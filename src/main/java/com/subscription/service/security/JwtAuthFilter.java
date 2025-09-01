@@ -25,14 +25,26 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        String path = request.getRequestURI();
+
+        // Skip JWT validation for /api/dashboard/**
+        if (path.startsWith("/api/dashboard/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String token = getTokenFromHeader(request);
+
         if (token != null && jwtUtil.isValid(token)) {
             String username = jwtUtil.extractUsername(token);
-            // Dummy authentication — for internal token verification
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     username, null, Collections.emptyList()
             );
             SecurityContextHolder.getContext().setAuthentication(auth);
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Unauthorized: JWT token is missing or invalid");
+            return;
         }
 
         filterChain.doFilter(request, response);

@@ -40,6 +40,14 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractFirstName(String token) {
+        return extractClaim(token, claims -> claims.get("firstName", String.class));
+    }
+
+    public String extractLastName(String token) {
+        return extractClaim(token, claims -> claims.get("lastName", String.class));
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> resolver) {
         return resolver.apply(extractAllClaims(token));
     }

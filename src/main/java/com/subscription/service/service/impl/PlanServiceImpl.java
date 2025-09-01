@@ -1,4 +1,4 @@
-package com.subscription.service.service.Impl;
+package com.subscription.service.service.impl;
 
 import com.subscription.service.dto.PlanRequest;
 import com.subscription.service.dto.PlanResponse;
@@ -18,13 +18,15 @@ public class PlanServiceImpl implements PlanService {
     private final PlanRepository planRepository;
 
     @Override
-    public PlanResponse createPlan(PlanRequest request, String creatorId) {
+    public PlanResponse createPlan(PlanRequest request, String creatorId,String firstName,String lastName) {
         Plan plan = Plan.builder()
                 .name(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())
                 .durationInDays(request.getDurationInDays())
-                .creatorId(creatorId) // ✅ important
+                .creatorId(creatorId)
+                .firstName(firstName)
+                .lastName(lastName)
                 .build();
 
         Plan saved = planRepository.save(plan);
@@ -54,7 +56,7 @@ public class PlanServiceImpl implements PlanService {
                 .description(plan.getDescription())
                 .price(plan.getPrice())
                 .durationInDays(plan.getDurationInDays())
-                .creatorId(plan.getCreatorId()) // ✅ FIXED
+                .creatorId(plan.getCreatorId())
                 .build();
     }
 }

@@ -17,4 +17,5 @@ public class PlanResponse {
     private Integer durationInDays;
 
     private String creatorId;
+
 }

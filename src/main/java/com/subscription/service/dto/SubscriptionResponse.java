@@ -12,7 +12,12 @@ public class SubscriptionResponse {
     private Long id;
     private String userId;
     private String planName;
+    private  Double price;
+    private Integer durationInDays;
+    private  String status;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean isActive;
+    private String autoRenewal;
+
 }

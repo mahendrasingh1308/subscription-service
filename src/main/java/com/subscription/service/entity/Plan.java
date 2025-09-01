@@ -20,6 +20,11 @@ public class Plan {
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
+    @Column(name="first_name")
+    private String firstName;
+
+    @Column(name="last_name")
+    private String lastName;
 
     @Column(name = "description", length = 500)
     private String description;
